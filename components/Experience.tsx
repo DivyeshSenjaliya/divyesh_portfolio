@@ -29,7 +29,7 @@ export default function Experience() {
     const experiences = [
         {
             title: 'React Native Developer',
-            company: 'Madwise Infotech',
+            company: 'Madvise Infotech',
             period: 'November 2023 - Present',
             location: 'Surat',
             description: [
@@ -40,8 +40,8 @@ export default function Experience() {
             current: true,
         },
         {
-            title: 'React Native Trainee',
-            company: 'Madwise Infotech',
+            title: 'React Native Intern',
+            company: 'Madvise Infotech',
             period: 'May 2023 - November 2023',
             location: 'Surat',
             description: [

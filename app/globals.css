@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --color-primary: 14 165 233;
+  --color-primary: 0 128 128; /* Teal #008080 */
   --color-dark-900: 15 23 42;
   --color-dark-800: 30 41 59;
   --color-dark-700: 51 65 85;
@@ -27,7 +27,7 @@
 body {
   background-color: rgb(var(--color-dark-900));
   color: rgb(var(--color-dark-50));
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: "Space Grotesk", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -38,7 +38,14 @@ html {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background: linear-gradient(
+    135deg,
+    #b2d8d8 0%,
+    #66b2b2 25%,
+    #008080 50%,
+    #006666 75%,
+    #004c4c 100%
+  );
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -47,44 +54,60 @@ html {
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .glass-effect {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 128, 128, 0.15);
 }
 
 .glow-effect {
-  box-shadow: 0 0 30px rgba(102, 126, 234, 0.4),
-              0 0 60px rgba(118, 75, 162, 0.2);
+  box-shadow:
+    0 0 30px rgba(102, 178, 178, 0.4),
+    0 0 60px rgba(0, 128, 128, 0.2);
   animation: glow-pulse 3s ease-in-out infinite;
 }
 
 @keyframes glow-pulse {
-  0%, 100% { 
-    box-shadow: 0 0 30px rgba(102, 126, 234, 0.4),
-                0 0 60px rgba(118, 75, 162, 0.2);
+  0%,
+  100% {
+    box-shadow:
+      0 0 30px rgba(102, 178, 178, 0.4),
+      0 0 60px rgba(0, 128, 128, 0.2);
   }
-  50% { 
-    box-shadow: 0 0 40px rgba(102, 126, 234, 0.6),
-                0 0 80px rgba(118, 75, 162, 0.4);
+  50% {
+    box-shadow:
+      0 0 40px rgba(102, 178, 178, 0.6),
+      0 0 80px rgba(0, 128, 128, 0.4);
   }
 }
 
 .neon-border {
   border: 2px solid transparent;
-  background: linear-gradient(rgb(var(--color-dark-900)), rgb(var(--color-dark-900))) padding-box,
-              linear-gradient(135deg, #667eea, #764ba2, #f093fb) border-box;
+  background:
+    linear-gradient(rgb(var(--color-dark-900)), rgb(var(--color-dark-900)))
+      padding-box,
+    linear-gradient(135deg, #b2d8d8, #66b2b2, #008080) border-box;
   animation: neon-pulse 2s ease-in-out infinite;
 }
 
 @keyframes neon-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 .section-padding {
@@ -107,7 +130,9 @@ html {
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
 }
 
 .fade-in-up.visible {
@@ -125,7 +150,11 @@ html {
 
 .particle {
   position: absolute;
-  background: radial-gradient(circle, rgba(102, 126, 234, 0.8) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(102, 178, 178, 0.8) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   pointer-events: none;
   animation: float-particle 20s infinite;

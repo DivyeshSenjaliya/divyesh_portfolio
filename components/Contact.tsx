@@ -1,18 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { personalInfo as localProfile } from '@/lib/data'
+import { getDocumentData } from '@/lib/firestoreUtils'
 
 export default function Contact() {
+    const [profile, setProfile] = useState(localProfile)
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: '',
     })
 
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const remoteProfile = await getDocumentData('profile', 'main')
+            if (remoteProfile) {
+                setProfile(prev => ({
+                    ...prev,
+                    ...remoteProfile,
+                    // Ensure nested objects like socials are merged correctly if needed, 
+                    // but shallow merge of profile is usually enough if structure matches
+                }))
+            }
+        }
+        fetchProfile()
+    }, [])
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         // Create mailto link
-        const mailtoLink = `mailto:divyeshsenjaliya@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.name}%0D%0AEmail: ${formData.email}`
+        const mailtoLink = `mailto:${profile.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.name}%0D%0AEmail: ${formData.email}`
         window.location.href = mailtoLink
     }
 
@@ -31,8 +49,8 @@ export default function Contact() {
                 </svg>
             ),
             label: 'Email',
-            value: 'divyeshsenjaliya@gmail.com',
-            link: 'mailto:divyeshsenjaliya@gmail.com',
+            value: profile.email,
+            link: `mailto:${profile.email}`,
         },
         {
             icon: (
@@ -41,8 +59,10 @@ export default function Contact() {
                 </svg>
             ),
             label: 'Phone',
-            value: '+91 9574520727',
-            link: 'tel:+919574520727',
+            // @ts-ignore
+            value: profile.phone || '',
+            // @ts-ignore
+            link: profile.phone ? `tel:${profile.phone.replace(/\s+/g, '')}` : null,
         },
         {
             icon: (
@@ -52,7 +72,7 @@ export default function Contact() {
                 </svg>
             ),
             label: 'Location',
-            value: 'Surat, Gujarat',
+            value: profile.location,
             link: null,
         },
     ]
@@ -115,18 +135,22 @@ export default function Contact() {
                             </p>
                             <div className="flex gap-4">
                                 <a
-                                    href="mailto:divyeshsenjaliya@gmail.com"
+                                    href={`mailto:${profile.email}`}
                                     className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 text-center relative overflow-hidden group"
                                 >
                                     <span className="relative z-10">Send Email</span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                 </a>
-                                <a
-                                    href="tel:+919574520727"
-                                    className="flex-1 px-6 py-4 glass-effect text-dark-50 font-semibold rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-105 text-center border border-white/5 hover:border-purple-500/30"
-                                >
-                                    Call Now
-                                </a>
+                                {/* @ts-ignore */}
+                                {profile.phone && (
+                                    <a
+                                        // @ts-ignore
+                                        href={`tel:${profile.phone.replace(/\+,/g, '')}`}
+                                        className="flex-1 px-6 py-4 glass-effect text-dark-50 font-semibold rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-105 text-center border border-white/5 hover:border-purple-500/30"
+                                    >
+                                        Call Now
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -201,7 +225,7 @@ export default function Contact() {
                 <div className="mt-20 pt-8 border-t border-white/5 text-center relative">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
                     <p className="text-dark-400 font-medium">
-                        © {new Date().getFullYear()} Divyesh Senjaliya. Built with <span className="text-white hover:text-purple-400 transition-colors cursor-default">Next.js</span> & <span className="text-white hover:text-blue-400 transition-colors cursor-default">Tailwind CSS</span>.
+                        © {new Date().getFullYear()} Divyesh Senjaliya.
                     </p>
                 </div>
             </div>

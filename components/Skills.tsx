@@ -31,7 +31,11 @@ export default function Skills() {
     const skillCategories = [
         {
             title: 'Mobile Development',
-            icon: '📱',
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+            ),
             skills: [
                 { name: 'React Native', level: 90 },
                 { name: 'JavaScript / TypeScript', level: 85 },
@@ -40,7 +44,11 @@ export default function Skills() {
         },
         {
             title: 'Backend & Database',
-            icon: '🗄️',
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                </svg>
+            ),
             skills: [
                 { name: 'Firebase & Realtime Database', level: 80 },
                 { name: 'SQL & SQLite', level: 75 },
@@ -49,7 +57,11 @@ export default function Skills() {
         },
         {
             title: 'Leadership & Design',
-            icon: '🎨',
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            ),
             skills: [
                 { name: 'Team Leadership', level: 85 },
                 { name: 'Responsive UI Design', level: 88 },
@@ -59,16 +71,72 @@ export default function Skills() {
     ]
 
     const languages = [
-        { name: 'English', level: 'Professional Proficiency', icon: '🇬🇧' },
-        { name: 'Hindi', level: 'Full Professional Proficiency', icon: '🇮🇳' },
-        { name: 'Gujarati', level: 'Native/Bilingual', icon: '🗣️' },
+        {
+            name: 'English',
+            level: 'Professional Proficiency',
+            icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5h12M9 3v2m1.204 8.845a6 6 0 11-5.908-5.907M9 12v-1m5.121 5.122a6 6 0 10-6.427-5.903" />
+                </svg>
+            )
+        },
+        {
+            name: 'Hindi',
+            level: 'Full Professional Proficiency',
+            icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                </svg>
+            )
+        },
+        {
+            name: 'Gujarati',
+            level: 'Native/Bilingual',
+            icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+            )
+        },
     ]
 
     const interests = [
-        { icon: '💻', name: 'Programming', gradient: 'from-blue-500 to-cyan-500' },
-        { icon: '📚', name: 'Continuous Learning', gradient: 'from-purple-500 to-pink-500' },
-        { icon: '🧩', name: 'Problem-Solving', gradient: 'from-orange-500 to-red-500' },
-        { icon: '✈️', name: 'Traveling', gradient: 'from-green-500 to-teal-500' },
+        {
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+            ),
+            name: 'Programming',
+            gradient: 'from-blue-500 to-cyan-500'
+        },
+        {
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            ),
+            name: 'Continuous Learning',
+            gradient: 'from-purple-500 to-pink-500'
+        },
+        {
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+            ),
+            name: 'Problem-Solving',
+            gradient: 'from-orange-500 to-red-500'
+        },
+        {
+            icon: (
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            ),
+            name: 'Traveling',
+            gradient: 'from-green-500 to-teal-500'
+        },
     ]
 
     return (

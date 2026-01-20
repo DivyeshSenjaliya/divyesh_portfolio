@@ -10,7 +10,7 @@ export default function Hero() {
         setMounted(true)
 
         // Generate particles
-        const particleArray = Array.from({ length: 30 }, (_, i) => ({
+        const particleArray = Array.from({ length: 40 }, (_, i) => ({
             id: i,
             left: `${Math.random() * 100}%`,
             delay: Math.random() * 20,
@@ -19,105 +19,88 @@ export default function Hero() {
         setParticles(particleArray)
     }, [])
 
-    const scrollToContact = () => {
-        const element = document.getElementById('contact')
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-        }
-    }
-
     return (
         <section
             id="home"
-            className="relative min-h-screen flex items-center justify-center overflow-hidden"
+            className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-900"
         >
-            {/* Animated Particle Background */}
-            <div className="absolute inset-0 overflow-hidden">
+            {/* Animated Particle & Glow Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {particles.map((particle) => (
                     <div
                         key={particle.id}
-                        className="particle"
+                        className="particle opacity-30"
                         style={{
                             left: particle.left,
                             width: `${particle.size}px`,
                             height: `${particle.size}px`,
                             animationDelay: `${particle.delay}s`,
+                            background: 'rgba(20, 184, 166, 0.5)' // Teal glow
                         }}
                     />
                 ))}
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-float" />
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-                <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
+
+                {/* Reference-style deep glows */}
+                <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-[120px] animate-pulse-glow" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-[100px] animate-pulse-glow" style={{ animationDelay: '2s' }} />
+
+                {/* Vignette */}
+                <div className="absolute inset-0 bg-radial-gradient from-transparent via-dark-900/50 to-dark-900" />
             </div>
 
             {/* Content */}
-            <div className={`relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <div className="mb-6">
-                    <span className="inline-block px-6 py-2 glass-effect rounded-full text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 mb-6 animate-pulse-glow">
-                        ✨ Welcome to my portfolio
-                    </span>
+            <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-center transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+
+                <div className="mb-8 flex justify-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-900/30 border border-teal-500/20 backdrop-blur-md">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                        </span>
+                        <span className="text-sm font-medium text-teal-200 tracking-wide uppercase">Available for work</span>
+                    </div>
                 </div>
 
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6">
-                    <span className="block text-dark-50 mb-2 hover:scale-105 transition-transform duration-300">DIVYESH SENJALIYA</span>
-                    <span className="block text-gradient animate-glow">React Native Developer</span>
+                <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-bold mb-8 tracking-tight leading-[0.9]">
+                    <span className="block text-white mb-2">DIVYESH</span>
+                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-teal-400 to-teal-600 animate-glow">
+                        SENJALIYA
+                    </span>
                 </h1>
 
-                <p className="text-lg md:text-xl text-dark-300 max-w-3xl mx-auto mb-4 font-medium">
-                    📍 Surat, Gujarat
+                <p className="text-xl md:text-2xl text-dark-400 max-w-2xl mx-auto mb-4 font-light tracking-wide">
+                    React Native Developer
+                    <span className="mx-3 text-teal-800">•</span>
+                    Surat, Gujarat
                 </p>
 
-                <p className="text-base md:text-lg text-dark-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-                    As a passionate React Native Developer, I am seeking an opportunity to work with a growth-oriented
-                    organization where I can leverage my skills in cross-platform mobile development to build high-quality,
-                    user-centric applications.
+                <p className="text-lg md:text-xl text-dark-300 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+                    Crafting high-performance cross-platform mobile experiences with a focus on
+                    <span className="text-teal-400 font-normal"> fluid animations</span> and
+                    <span className="text-teal-400 font-normal"> intuitive design</span>.
                 </p>
 
-                {/* Contact Info */}
-                <div className="flex flex-wrap items-center justify-center gap-6 mb-12 text-sm md:text-base text-dark-300">
+                {/* Minimalist CTA Buttons */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                     <a
-                        href="tel:+919574520727"
-                        className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:text-purple-400 hover:scale-110 transition-all duration-300 group"
+                        href="/contact"
+                        className="group relative px-8 py-4 bg-white text-dark-900 font-bold rounded-full overflow-hidden transition-transform duration-300 hover:scale-105 shadow-xl shadow-teal-900/20 w-full sm:w-auto"
                     >
-                        <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        +91 9574520727
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                            Get In Touch
+                            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </span>
                     </a>
+
                     <a
-                        href="mailto:divyeshsenjaliya@gmail.com"
-                        className="flex items-center gap-2 px-4 py-2 glass-effect rounded-lg hover:text-purple-400 hover:scale-110 transition-all duration-300 group"
+                        href="/projects"
+                        className="group px-8 py-4 rounded-full border border-dark-700 bg-dark-800/50 backdrop-blur-sm text-white font-medium hover:bg-dark-800 hover:border-teal-500/50 transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2"
                     >
-                        <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        divyeshsenjaliya@gmail.com
+                        View Work
+                        <svg className="w-5 h-5 text-dark-400 group-hover:text-teal-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
                     </a>
                 </div>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                    <button
-                        onClick={scrollToContact}
-                        className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50"
-                    >
-                        <span className="relative z-10">Get In Touch</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </button>
-                    <a
-                        href="#projects"
-                        className="px-8 py-4 glass-effect text-dark-50 font-semibold rounded-lg hover:bg-white/10 transition-all duration-300 hover:scale-105 neon-border"
-                    >
-                        View Projects
-                    </a>
-                </div>
-
-                {/* Scroll Indicator */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-                    <svg className="w-6 h-6 text-purple-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                </div>
             </div>
         </section>
     )
