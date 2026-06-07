@@ -7,14 +7,24 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import { getDocumentData } from '@/lib/firestoreUtils'
 import profilePic from '@/app/personalImage/divyeshh.jpg'
 
+interface Profile {
+    name?: string;
+    role?: string;
+    bio?: string;
+    languages?: string[];
+    email?: string;
+    phone?: string;
+    location?: string;
+}
+
 export default function Hero() {
-    const [profile, setProfile] = useState<any>(null)
+    const [profile, setProfile] = useState<Profile | null>(null)
 
     useEffect(() => {
         const fetchProfile = async () => {
             const data = await getDocumentData('profile', 'main')
             if (data) {
-                setProfile(data)
+                setProfile(data as Profile)
             }
         }
         fetchProfile()

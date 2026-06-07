@@ -5,15 +5,25 @@ import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { getDocumentData } from '@/lib/firestoreUtils'
 
+interface Profile {
+    name?: string;
+    role?: string;
+    bio?: string;
+    languages?: string[];
+    email?: string;
+    phone?: string;
+    location?: string;
+}
+
 export default function Contact() {
-    const [profile, setProfile] = useState<any>(null)
+    const [profile, setProfile] = useState<Profile | null>(null)
     const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
     useEffect(() => {
         const fetchProfile = async () => {
             const remoteProfile = await getDocumentData('profile', 'main')
             if (remoteProfile) {
-                setProfile(remoteProfile)
+                setProfile(remoteProfile as Profile)
             }
         }
         fetchProfile()
@@ -76,7 +86,6 @@ export default function Contact() {
                                 </div>
                             </div>
 
-                            {/* @ts-ignore */}
                             {profile.phone && (
                                 <div className="flex items-center gap-6 group">
                                     <div className="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-primary-500 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-background transition-all duration-500">
@@ -84,9 +93,7 @@ export default function Contact() {
                                     </div>
                                     <div>
                                         <p className="text-mutedForeground text-sm font-medium mb-1">Phone</p>
-                                        {/* @ts-ignore */}
                                         <a href={`tel:${profile.phone.replace(/\s+/g, '')}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
-                                            {/* @ts-ignore */}
                                             {profile.phone}
                                         </a>
                                     </div>

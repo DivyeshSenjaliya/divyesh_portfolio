@@ -4,32 +4,64 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { getDocumentData, getCollectionData } from '@/lib/firestoreUtils'
 
+interface Profile {
+    name?: string;
+    role?: string;
+    bio?: string;
+    languages?: string[];
+    email?: string;
+    phone?: string;
+    location?: string;
+}
+
+interface Skill {
+    title: string;
+    desc: string;
+}
+
+interface SkillsData {
+    technical?: Skill[];
+}
+
+interface Experience {
+    title: string;
+    company: string;
+    period: string;
+    description: string;
+}
+
+interface Education {
+    degree: string;
+    institution: string;
+    period: string;
+}
+
 export default function About() {
-    const [profile, setProfile] = useState<any>(null)
-    const [experiences, setExperiences] = useState<any[]>([])
-    const [education, setEducation] = useState<any[]>([])
-    const [skillsData, setSkillsData] = useState<any>(null)
+    const [profile, setProfile] = useState<Profile | null>(null)
+    const [experiences, setExperiences] = useState<Experience[]>([])
+    const [education, setEducation] = useState<Education[]>([])
+    const [skillsData, setSkillsData] = useState<SkillsData | null>(null)
 
     useEffect(() => {
         const fetchData = async () => {
             const remoteProfile = await getDocumentData('profile', 'main')
             if (remoteProfile) {
-                setProfile(remoteProfile)
+                setProfile(remoteProfile as Profile)
             }
             const remoteExp = await getCollectionData('experience')
             if (remoteExp && remoteExp.length > 0) {
                 const uniqueExp = (remoteExp as any[]).filter((v, i, a) => a.findIndex(t => (t.title === v.title && t.company === v.company)) === i)
-                setExperiences(uniqueExp)
+                setExperiences(uniqueExp as Experience[])
             }
 
             const remoteEdu = await getCollectionData('education')
             if (remoteEdu && remoteEdu.length > 0) {
                 const uniqueEdu = (remoteEdu as any[]).filter((v, i, a) => a.findIndex(t => (t.degree === v.degree && t.institution === v.institution)) === i)
-                setEducation(uniqueEdu)
+                setEducation(uniqueEdu as Education[])
             }
 
             const remoteSkills = await getDocumentData('skills', 'main')
-            if (remoteSkills) setSkillsData(remoteSkills as any)
+            if (remoteSkills) setSkillsData(remoteSkills as SkillsData)
         }
         fetchData()
     }, [])
