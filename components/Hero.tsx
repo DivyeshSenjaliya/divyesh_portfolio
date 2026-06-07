@@ -148,7 +148,7 @@ export default function Hero() {
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.8, duration: 0.5 }}
-                        className="absolute -bottom-4 -left-4 lg:bottom-12 lg:-left-8 glass-card p-4 md:p-5 rounded-2xl border border-white/10 shadow-2xl flex items-center gap-4 z-20"
+                        className="absolute bottom-4 left-4 sm:-bottom-4 sm:-left-4 lg:bottom-12 lg:-left-8 glass-card p-4 md:p-5 rounded-2xl border border-white/10 shadow-2xl flex items-center gap-4 z-20"
                     >
                         <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary-500/20 flex items-center justify-center text-primary-400 font-bold text-xl md:text-2xl">
                             3+
