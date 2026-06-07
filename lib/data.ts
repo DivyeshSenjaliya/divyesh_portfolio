@@ -110,6 +110,7 @@ export const projects = [
       "Developed features to provide real-time business and stock market news updates. Integrated widgets, push notifications, and offline reading capabilities.",
     gradient: "from-purple-500 to-blue-500",
     icon: "ET",
+    image: "https://play-lh.googleusercontent.com/qPlCh-FOFw5IF-s-XfhlDojzbpVVzUqrNeVcnlrykL2EpOLpdmcJBpTePhKgh8LwAQ",
     links: {
       ios: "https://apps.apple.com/in/app/the-economic-times/id403513333",
       android:
@@ -124,6 +125,7 @@ export const projects = [
       "Designed and developed an app for phlebotomists to manage and accept assigned orders. Implemented barcode scanning and photo verification.",
     gradient: "from-blue-500 to-cyan-500",
     icon: "PC",
+    image: "https://play-lh.googleusercontent.com/r_zU6zV-3yv6_zK1b203c-jJ41D20g9i5R6c20E0eD2D52F7e9-74d32a0d1e3C0fQ",
     links: {
       android:
         "https://play.google.com/store/apps/details?id=com.pathoconnect.phlebo",
@@ -137,6 +139,7 @@ export const projects = [
       "Created a lite version of the app to provide virtual workshops for children. Developed modules for interactive challenges and brainstorming.",
     gradient: "from-green-500 to-emerald-500",
     icon: "IC",
+    image: "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/30/1e/04/301e0413-ebdd-2dce-a2e6-a241071d0e52/source/512x512bb.jpg",
     links: {
       ios: "https://apps.apple.com/us/app/innovation-champions-club/id1571404179",
     },
@@ -149,6 +152,7 @@ export const projects = [
       "Developed an e-commerce app for nightwear, lingerie, and loungewear. Implemented seamless shopping experiences and multiple payment options.",
     gradient: "from-pink-500 to-rose-500",
     icon: "NY",
+    image: "https://logo.clearbit.com/nayomi.com",
     links: {
       ios: "https://apps.apple.com/ae/app/nayomi-%D9%86%D8%B9%D9%88%D9%85%D9%8A/id1453406248",
       android: "https://play.google.com/store/apps/details?id=com.nayomi",
@@ -162,6 +166,7 @@ export const projects = [
       "Created a fashion e-commerce app with advanced search and filtering options. Integrated push notifications for exclusive offers.",
     gradient: "from-amber-500 to-orange-500",
     icon: "MY",
+    image: "https://logo.clearbit.com/mihyar.com",
     links: {
       ios: "https://apps.apple.com/ae/app/mihyar-%D9%85%D9%87%D9%8A%D8%A7%D8%B1/id1463375811",
       android: "https://play.google.com/store/apps/details?id=com.mihyar",
@@ -175,6 +180,7 @@ export const projects = [
       "Developed an app for beauty and skincare products with an intuitive UI. Enabled easy navigation and seamless checkout.",
     gradient: "from-teal-500 to-green-500",
     icon: "BS",
+    image: "https://logo.clearbit.com/thebodyshop.ae",
     links: {
       ios: "https://apps.apple.com/ae/app/the-body-shop-uae/id1524317070",
       android:
@@ -189,6 +195,7 @@ export const projects = [
       "Designed an engaging shopping experience for LEGO® products. Implemented product showcases, interactive games, and video content.",
     gradient: "from-yellow-400 to-orange-500",
     icon: "LG",
+    image: "https://logo.clearbit.com/lego.com",
     links: {
       ios: "https://apps.apple.com/sa/app/lego-saudi-arabia/id1571217081",
     },

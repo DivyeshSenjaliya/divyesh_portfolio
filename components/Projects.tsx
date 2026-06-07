@@ -1,118 +1,125 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { projects as localProjects } from '@/lib/data'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { ExternalLink, Smartphone } from 'lucide-react'
 import { getCollectionData } from '@/lib/firestoreUtils'
 
 export default function Projects() {
-    const [projects, setProjects] = useState(localProjects)
-    const [visibleProjects, setVisibleProjects] = useState<Set<number>>(new Set())
-    const sectionRef = useRef<HTMLDivElement>(null)
+    const [projects, setProjects] = useState<any[]>([])
 
     useEffect(() => {
         const fetchProjects = async () => {
             const remoteProjects = await getCollectionData('projects')
-            if (remoteProjects.length > 0) {
-                // Determine order? Firestore doesn't guarantee order unless orderBy is used.
-                // For now use as is. Ideally we add an 'order' field.
+            if (remoteProjects && remoteProjects.length > 0) {
                 setProjects(remoteProjects as any)
             }
         }
         fetchProjects()
     }, [])
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const index = Number(entry.target.getAttribute('data-index'))
-                        if (!isNaN(index)) {
-                            setVisibleProjects(prev => new Set(prev).add(index))
-                        }
-                    }
-                })
-            },
-            { threshold: 0.1 }
-        )
-
-        const projectElements = document.querySelectorAll('.project-card')
-        projectElements.forEach((el) => observer.observe(el))
-
-        return () => observer.disconnect()
-    }, [projects])
-
     return (
-        <section id="projects" className="section-padding relative min-h-screen">
-            {/* Background Texture */}
-            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
+        <section id="projects" className="section-padding min-h-screen bg-background relative overflow-hidden pt-32">
 
-            <div className="max-w-7xl mx-auto relative z-10" ref={sectionRef}>
-                <div className="mb-24">
-                    <h2 className="text-6xl md:text-8xl font-display font-bold text-white mb-6">
-                        Featured<br /><span className="text-teal-500">Work.</span>
+            <div className="max-w-7xl mx-auto relative z-10">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-20"
+                >
+                    <h2 className="text-5xl md:text-7xl font-display font-bold text-foreground mb-6 tracking-tight">
+                        Featured <span className="text-primary-500">Work</span>
                     </h2>
-                    <p className="text-xl text-dark-400 max-w-2xl">
-                        A collection of mobile applications I've engineered, focusing on performance, user experience, and scalability.
+                    <p className="text-xl text-mutedForeground max-w-2xl font-light">
+                        A curated collection of mobile applications engineered with a focus on fluid performance and exceptional user experience.
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="flex flex-col gap-24">
+                <div className="flex flex-col gap-16">
                     {projects.map((project: any, index: number) => (
-                        <div
+                        <motion.div
                             key={index}
-                            data-index={index}
-                            className={`project-card group transition-all duration-1000 ${visibleProjects.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
-                            style={{ transitionDelay: `${index * 100}ms` }}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{ duration: 0.8, delay: index * 0.1 }}
+                            className="group relative"
                         >
-                            {/* Project Visual Container - Large Bento Style */}
-                            <div className="relative aspect-video md:aspect-[2.4/1] w-full bg-dark-800 rounded-3xl overflow-hidden border border-white/5 group-hover:border-teal-500/30 transition-all duration-500">
-                                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient || 'from-gray-700 to-gray-900'} opacity-10 blur-3xl group-hover:opacity-20 transition-opacity duration-500`} />
-                                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent opacity-60" />
+                            <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-primary-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                            <div className="relative glass-card rounded-3xl overflow-hidden flex flex-col lg:flex-row border border-white/5">
+                                
+                                {/* Image / Icon Area */}
+                                <div className="lg:w-2/5 p-8 md:p-12 bg-muted/30 flex items-center justify-center relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent opacity-50" />
+                                    <motion.div 
+                                        whileHover={{ scale: 1.05 }}
+                                        transition={{ type: "spring", stiffness: 300 }}
+                                        className="w-32 h-32 md:w-48 md:h-48 rounded-3xl bg-background border border-white/10 flex items-center justify-center shadow-2xl relative z-10 overflow-hidden"
+                                    >
+                                        {project.image && (
+                                            /* eslint-disable-next-line @next/next/no-img-element */
+                                            <img 
+                                                src={project.image} 
+                                                alt={project.title} 
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    e.currentTarget.style.display = 'none';
+                                                    if (e.currentTarget.nextElementSibling) {
+                                                        (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
+                                                    }
+                                                }}
+                                            />
+                                        )}
+                                        <span 
+                                            className="font-display font-bold text-primary-500"
+                                            style={{ 
+                                                display: project.image ? 'none' : 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                width: '100%',
+                                                height: '100%',
+                                                fontSize: '3.75rem'
+                                            }}
+                                        >
+                                            {project.icon || <Smartphone className="w-16 h-16 text-primary-500" />}
+                                        </span>
+                                    </motion.div>
+                                </div>
 
-                                {/* Placeholder Content / Icon */}
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl group-hover:scale-110 transition-transform duration-500">
-                                        <h3 className="text-6xl font-display font-bold text-white/20 select-none">{project.icon}</h3>
+                                {/* Content Area */}
+                                <div className="lg:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div>
+                                            <h3 className="text-3xl font-display font-bold text-foreground group-hover:text-primary-400 transition-colors">
+                                                {project.title}
+                                            </h3>
+                                            <p className="text-primary-500 font-medium mt-2">{project.subtitle}</p>
+                                        </div>
+                                        <div className="flex gap-3">
+                                            {project.links?.ios && (
+                                                <a href={project.links.ios} target="_blank" rel="noopener noreferrer" className="p-3 bg-muted text-foreground rounded-full hover:bg-primary-500 hover:text-background transition-colors">
+                                                    <ExternalLink className="w-5 h-5" />
+                                                </a>
+                                            )}
+                                            {project.links?.android && (
+                                                <a href={project.links.android} target="_blank" rel="noopener noreferrer" className="p-3 bg-muted text-foreground rounded-full hover:bg-primary-500 hover:text-background transition-colors">
+                                                    <Smartphone className="w-5 h-5" />
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Floating Links */}
-                                <div className="absolute top-6 right-6 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    {project.links?.ios && (
-                                        <a href={project.links.ios} target="_blank" rel="noopener noreferrer" className="p-3 bg-dark-900/80 backdrop-blur text-white rounded-full hover:bg-white hover:text-dark-900 transition-colors">
-                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.21-.93 3.69-.93.95 0 2.58.5 3.69 1.93-2.92 1.45-2.44 5.95.88 7.32-.47 1.48-1.58 3.19-3.34 3.91zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" /></svg>
-                                        </a>
-                                    )}
-                                    {project.links?.android && (
-                                        <a href={project.links.android} target="_blank" rel="noopener noreferrer" className="p-3 bg-dark-900/80 backdrop-blur text-white rounded-full hover:bg-white hover:text-dark-900 transition-colors">
-                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.67-1.5 1.5-1.5.26 0 .5.07.72.2l13.56 7.84c.88.51.88 1.8 0 2.31L5.22 20.18c-.22.13-.46.2-.72.2-.83 0-1.5-.67-1.5-1.5z" /></svg>
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Project Details */}
-                            <div className="grid md:grid-cols-12 gap-6 mt-8">
-                                {/* Title Column */}
-                                <div className="md:col-span-4">
-                                    <h3 className="text-3xl font-display font-bold text-white group-hover:text-teal-400 transition-colors">
-                                        {project.title}
-                                    </h3>
-                                    <p className="text-dark-400 font-medium mt-1">{project.subtitle}</p>
-                                </div>
-
-                                {/* Description Column */}
-                                <div className="md:col-span-8">
-                                    <p className="text-dark-300 text-lg leading-relaxed mb-6">
+                                    <p className="text-mutedForeground text-lg leading-relaxed mb-8">
                                         {project.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mt-auto">
                                         {project.tech && project.tech.map((t: string, i: number) => (
                                             <span
                                                 key={i}
-                                                className="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/5 text-dark-300"
+                                                className="px-4 py-1.5 rounded-full text-xs font-semibold bg-primary-500/10 text-primary-300 border border-primary-500/20"
                                             >
                                                 {t}
                                             </span>
@@ -120,7 +127,7 @@ export default function Projects() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

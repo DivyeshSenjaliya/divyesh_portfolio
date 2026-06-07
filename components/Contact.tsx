@@ -1,171 +1,124 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { personalInfo as localProfile } from '@/lib/data'
+import { motion } from 'framer-motion'
+import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { getDocumentData } from '@/lib/firestoreUtils'
 
 export default function Contact() {
-    const [profile, setProfile] = useState(localProfile)
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: '',
-    })
+    const [profile, setProfile] = useState<any>(null)
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
     useEffect(() => {
         const fetchProfile = async () => {
             const remoteProfile = await getDocumentData('profile', 'main')
             if (remoteProfile) {
-                setProfile(prev => ({
-                    ...prev,
-                    ...remoteProfile,
-                    // Ensure nested objects like socials are merged correctly if needed, 
-                    // but shallow merge of profile is usually enough if structure matches
-                }))
+                setProfile(remoteProfile)
             }
         }
         fetchProfile()
     }, [])
 
+    if (!profile) return (
+        <div className="min-h-screen bg-background flex items-center justify-center">
+            <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
+        </div>
+    )
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        // Create mailto link
         const mailtoLink = `mailto:${profile.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.name}%0D%0AEmail: ${formData.email}`
         window.location.href = mailtoLink
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        })
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const contactInfo = [
-        {
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-            ),
-            label: 'Email',
-            value: profile.email,
-            link: `mailto:${profile.email}`,
-        },
-        {
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-            ),
-            label: 'Phone',
-            // @ts-ignore
-            value: profile.phone || '',
-            // @ts-ignore
-            link: profile.phone ? `tel:${profile.phone.replace(/\s+/g, '')}` : null,
-        },
-        {
-            icon: (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-            ),
-            label: 'Location',
-            value: profile.location,
-            link: null,
-        },
-    ]
-
     return (
-        <section id="contact" className="section-padding relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-radial from-purple-500/5 to-transparent opacity-50 pointer-events-none" />
+        <section id="contact" className="section-padding min-h-screen bg-background relative flex items-center pt-32">
 
-            <div className="max-w-6xl mx-auto relative z-10">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-display font-bold text-gradient mb-4 animate-glow">
-                        Get In Touch
+            <div className="max-w-6xl mx-auto w-full relative z-10">
+                <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-16"
+                >
+                    <h2 className="text-5xl md:text-7xl font-display font-bold text-foreground mb-4 tracking-tight">
+                        Let's <span className="text-primary-500">Connect</span>
                     </h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 mx-auto rounded-full animate-shimmer"
-                        style={{ backgroundSize: '200% 100%' }} />
-                    <p className="text-dark-300 mt-6 max-w-2xl mx-auto">
-                        I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+                    <p className="text-xl text-mutedForeground mt-6 max-w-2xl mx-auto font-light">
+                        Always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-12">
-                    {/* Contact Information */}
-                    <div className="space-y-6">
-                        <div className="glass-effect p-8 rounded-2xl hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 transform hover:-translate-y-1">
-                            <h3 className="text-2xl font-display font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-6">
-                                Contact Information
-                            </h3>
-                            <div className="space-y-8">
-                                {contactInfo.map((info, index) => (
-                                    <div key={index} className="flex items-center gap-6 group">
-                                        <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 text-purple-400 group-hover:scale-110 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-purple-500 group-hover:to-blue-500 transition-all duration-300">
-                                            {info.icon}
-                                        </div>
-                                        <div>
-                                            <p className="text-dark-400 text-sm mb-1 font-medium tracking-wide">{info.label}</p>
-                                            {info.link ? (
-                                                <a
-                                                    href={info.link}
-                                                    className="text-lg text-dark-50 font-medium hover:text-purple-400 transition-colors relative group-hover:tracking-wide duration-300"
-                                                >
-                                                    {info.value}
-                                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 group-hover:w-full transition-all duration-300" />
-                                                </a>
-                                            ) : (
-                                                <p className="text-lg text-dark-50 font-medium">{info.value}</p>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Quick Links */}
-                        <div className="glass-effect p-8 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 transform hover:-translate-y-1">
-                            <h3 className="text-2xl font-display font-semibold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-6">
-                                Let's Connect
-                            </h3>
-                            <p className="text-dark-300 mb-8 leading-relaxed">
-                                Feel free to reach out for collaborations or just a friendly hello! I'm currently available for freelance projects and open to new opportunities.
-                            </p>
-                            <div className="flex gap-4">
-                                <a
-                                    href={`mailto:${profile.email}`}
-                                    className="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 text-center relative overflow-hidden group"
-                                >
-                                    <span className="relative z-10">Send Email</span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                </a>
-                                {/* @ts-ignore */}
-                                {profile.phone && (
-                                    <a
-                                        // @ts-ignore
-                                        href={`tel:${profile.phone.replace(/\+,/g, '')}`}
-                                        className="flex-1 px-6 py-4 glass-effect text-dark-50 font-semibold rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-105 text-center border border-white/5 hover:border-purple-500/30"
-                                    >
-                                        Call Now
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+                    
+                    {/* Contact Info */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="space-y-12"
+                    >
+                        <div className="space-y-8">
+                            <div className="flex items-center gap-6 group">
+                                <div className="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-primary-500 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-background transition-all duration-500">
+                                    <Mail className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <p className="text-mutedForeground text-sm font-medium mb-1">Email</p>
+                                    <a href={`mailto:${profile.email}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
+                                        {profile.email}
                                     </a>
-                                )}
+                                </div>
+                            </div>
+
+                            {/* @ts-ignore */}
+                            {profile.phone && (
+                                <div className="flex items-center gap-6 group">
+                                    <div className="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-primary-500 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-background transition-all duration-500">
+                                        <Phone className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <p className="text-mutedForeground text-sm font-medium mb-1">Phone</p>
+                                        {/* @ts-ignore */}
+                                        <a href={`tel:${profile.phone.replace(/\s+/g, '')}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
+                                            {/* @ts-ignore */}
+                                            {profile.phone}
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="flex items-center gap-6 group">
+                                <div className="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-primary-500 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-background transition-all duration-500">
+                                    <MapPin className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <p className="text-mutedForeground text-sm font-medium mb-1">Location</p>
+                                    <p className="text-xl text-foreground font-medium">
+                                        {profile.location}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    </motion.div>
 
                     {/* Contact Form */}
-                    <div className="glass-effect p-8 rounded-2xl hover:shadow-2xl hover:shadow-pink-500/10 transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl -mr-16 -mt-16 pointer-events-none" />
-                        <h3 className="text-2xl font-display font-semibold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-8">
-                            Send a Message
-                        </h3>
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="group">
-                                <label htmlFor="name" className="block text-dark-300 text-sm font-medium mb-2 ml-1 group-focus-within:text-purple-400 transition-colors">
-                                    Your Name
-                                </label>
+                    <motion.div 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 }}
+                        className="glass-card p-8 md:p-10 rounded-[2rem] relative glow-border"
+                    >
+                        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                            <div>
+                                <label htmlFor="name" className="block text-mutedForeground text-sm font-medium mb-2 ml-1">Name</label>
                                 <input
                                     type="text"
                                     id="name"
@@ -173,15 +126,13 @@ export default function Contact() {
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
-                                    className="w-full px-6 py-4 bg-dark-800/50 border border-dark-700/50 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all font-sans"
+                                    className="w-full px-6 py-4 bg-muted/30 border border-white/5 rounded-2xl text-foreground placeholder-mutedForeground/50 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans"
                                     placeholder="John Doe"
                                 />
                             </div>
 
-                            <div className="group">
-                                <label htmlFor="email" className="block text-dark-300 text-sm font-medium mb-2 ml-1 group-focus-within:text-purple-400 transition-colors">
-                                    Your Email
-                                </label>
+                            <div>
+                                <label htmlFor="email" className="block text-mutedForeground text-sm font-medium mb-2 ml-1">Email</label>
                                 <input
                                     type="email"
                                     id="email"
@@ -189,43 +140,39 @@ export default function Contact() {
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
-                                    className="w-full px-6 py-4 bg-dark-800/50 border border-dark-700/50 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all font-sans"
+                                    className="w-full px-6 py-4 bg-muted/30 border border-white/5 rounded-2xl text-foreground placeholder-mutedForeground/50 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans"
                                     placeholder="john@example.com"
                                 />
                             </div>
 
-                            <div className="group">
-                                <label htmlFor="message" className="block text-dark-300 text-sm font-medium mb-2 ml-1 group-focus-within:text-purple-400 transition-colors">
-                                    Your Message
-                                </label>
+                            <div>
+                                <label htmlFor="message" className="block text-mutedForeground text-sm font-medium mb-2 ml-1">Message</label>
                                 <textarea
                                     id="message"
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
-                                    rows={5}
-                                    className="w-full px-6 py-4 bg-dark-800/50 border border-dark-700/50 rounded-xl text-dark-50 placeholder-dark-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all resize-none font-sans"
+                                    rows={4}
+                                    className="w-full px-6 py-4 bg-muted/30 border border-white/5 rounded-2xl text-foreground placeholder-mutedForeground/50 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all resize-none font-sans"
                                     placeholder="Tell me about your project..."
                                 />
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full px-8 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-[1.02] active:scale-95 relative overflow-hidden group"
+                                className="w-full px-8 py-5 bg-foreground text-background font-bold rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
                             >
-                                <span className="relative z-10">Send Message</span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <span>Send Message</span>
+                                <Send className="w-5 h-5" />
                             </button>
                         </form>
-                    </div>
+                    </motion.div>
                 </div>
 
-                {/* Footer */}
-                <div className="mt-20 pt-8 border-t border-white/5 text-center relative">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
-                    <p className="text-dark-400 font-medium">
-                        © {new Date().getFullYear()} Divyesh Senjaliya.
+                <div className="mt-32 text-center">
+                    <p className="text-mutedForeground font-medium">
+                        © {new Date().getFullYear()} Divyesh Senjaliya. All rights reserved.
                     </p>
                 </div>
             </div>
