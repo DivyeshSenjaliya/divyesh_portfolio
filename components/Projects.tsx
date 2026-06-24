@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Smartphone } from 'lucide-react'
 import { getCollectionData } from '@/lib/firestoreUtils'
+import { projects as localProjects } from '@/lib/data'
+import ProjectIcon from '@/components/ProjectIcon'
 
 export default function Projects() {
-    const [projects, setProjects] = useState<any[]>([])
+    const [projects, setProjects] = useState<any[]>(localProjects)
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -58,33 +60,13 @@ export default function Projects() {
                                         transition={{ type: "spring", stiffness: 300 }}
                                         className="w-32 h-32 md:w-48 md:h-48 rounded-3xl bg-background border border-white/10 flex items-center justify-center shadow-2xl relative z-10 overflow-hidden"
                                     >
-                                        {project.image && (
-                                            /* eslint-disable-next-line @next/next/no-img-element */
-                                            <img 
-                                                src={project.image} 
-                                                alt={project.title} 
-                                                className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    e.currentTarget.style.display = 'none';
-                                                    if (e.currentTarget.nextElementSibling) {
-                                                        (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'flex';
-                                                    }
-                                                }}
-                                            />
-                                        )}
-                                        <span 
-                                            className="font-display font-bold text-primary-500"
-                                            style={{ 
-                                                display: project.image ? 'none' : 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                width: '100%',
-                                                height: '100%',
-                                                fontSize: '3.75rem'
-                                            }}
-                                        >
-                                            {project.icon || <Smartphone className="w-16 h-16 text-primary-500" />}
-                                        </span>
+                                        <ProjectIcon
+                                            title={project.title}
+                                            icon={project.icon}
+                                            image={project.image}
+                                            links={project.links}
+                                            fallbackClassName="flex h-full w-full items-center justify-center text-5xl font-black text-ink"
+                                        />
                                     </motion.div>
                                 </div>
 

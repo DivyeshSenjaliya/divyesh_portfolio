@@ -20,6 +20,7 @@ import {
     Workflow,
 } from 'lucide-react'
 import { personalInfo, projects, skills } from '@/lib/data'
+import ProjectIcon from '@/components/ProjectIcon'
 
 const tools = ['React Native', 'TypeScript', 'Firebase', 'REST APIs', 'Redux Toolkit', 'Zustand']
 
@@ -261,12 +262,15 @@ export default function Hero() {
                         {featuredProjects.map((project) => (
                             <article key={project.title} className="border-2 border-ink bg-white p-4 shadow-sketch">
                                 <div className={`mb-4 grid aspect-[1.2] place-items-center border-2 border-ink bg-gradient-to-br ${project.gradient}`}>
-                                    {project.image ? (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img src={project.image} alt={project.title} className="h-20 w-20 rounded-3xl border-2 border-ink bg-white object-cover shadow-sketch" />
-                                    ) : (
-                                        <span className="text-4xl font-black">{project.icon}</span>
-                                    )}
+                                    <div className="h-20 w-20 overflow-hidden rounded-3xl border-2 border-ink bg-white shadow-sketch">
+                                        <ProjectIcon
+                                            title={project.title}
+                                            icon={project.icon}
+                                            image={project.image}
+                                            links={project.links}
+                                            fallbackClassName="flex h-full w-full items-center justify-center bg-cream text-2xl font-black text-ink"
+                                        />
+                                    </div>
                                 </div>
                                 <div className="flex min-h-[220px] flex-col">
                                     <div className="flex items-start justify-between gap-4">
