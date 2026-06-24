@@ -8,11 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#09090b", // zinc-950
-        foreground: "#fafafa", // zinc-50
-        muted: "#27272a", // zinc-800
-        mutedForeground: "#a1a1aa", // zinc-400
-        border: "#27272a",
+        background: "#FFFDEE",
+        foreground: "#111111",
+        cream: "#FFFDEE",
+        ink: "#111111",
+        paper: "#FFFFFF",
+        muted: "#F4EFD7",
+        mutedForeground: "#5F5A4B",
+        border: "#111111",
         primary: {
           DEFAULT: "#14b8a6", // teal-500
           foreground: "#042f2e", // teal-950
@@ -32,6 +35,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         display: ["Outfit", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        sketch: "5px 5px 0 0 #111111",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

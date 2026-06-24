@@ -1,32 +1,16 @@
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-  Smartphone,
-  Database,
-  Layout,
-  Code,
-  Server,
-  Globe,
-  Book,
-  Coffee,
-} from "lucide-react";
-
 import profileImg from "@/app/personalImage/divyeshh.jpg";
-
 export const personalInfo = {
   name: "Divyesh Senjaliya",
   role: "React Native Developer",
   location: "Surat, India",
-  email: "divyeshsenjaliya@gmail.com",
+  email: "divyeshsenjaliy@gmail.com",
   phone: "+91 9574520727",
   bio: "Passionate developer with a strong focus on mobile technologies. I enjoy turning complex problems into simple, beautiful, and intuitive designs. My job is to build functional and user-friendly and at the same time attractive interfaces.",
   profileImage: profileImg,
   socials: {
     github: "https://github.com/DivyeshSenjaliya",
     linkedin: "https://linkedin.com",
-    email: "mailto:divyeshsenjaliya@gmail.com",
+    email: "mailto:divyeshsenjaliy@gmail.com",
   },
   languages: ["English", "Hindi", "Gujarati"],
 };
@@ -110,7 +94,8 @@ export const projects = [
       "Developed features to provide real-time business and stock market news updates. Integrated widgets, push notifications, and offline reading capabilities.",
     gradient: "from-purple-500 to-blue-500",
     icon: "ET",
-    image: "https://play-lh.googleusercontent.com/qPlCh-FOFw5IF-s-XfhlDojzbpVVzUqrNeVcnlrykL2EpOLpdmcJBpTePhKgh8LwAQ",
+    image:
+      "https://play-lh.googleusercontent.com/qPlCh-FOFw5IF-s-XfhlDojzbpVVzUqrNeVcnlrykL2EpOLpdmcJBpTePhKgh8LwAQ",
     links: {
       ios: "https://apps.apple.com/in/app/the-economic-times/id403513333",
       android:
@@ -125,7 +110,8 @@ export const projects = [
       "Designed and developed an app for phlebotomists to manage and accept assigned orders. Implemented barcode scanning and photo verification.",
     gradient: "from-blue-500 to-cyan-500",
     icon: "PC",
-    image: "https://play-lh.googleusercontent.com/r_zU6zV-3yv6_zK1b203c-jJ41D20g9i5R6c20E0eD2D52F7e9-74d32a0d1e3C0fQ",
+    image:
+      "https://play-lh.googleusercontent.com/r_zU6zV-3yv6_zK1b203c-jJ41D20g9i5R6c20E0eD2D52F7e9-74d32a0d1e3C0fQ",
     links: {
       android:
         "https://play.google.com/store/apps/details?id=com.pathoconnect.phlebo",
@@ -139,7 +125,8 @@ export const projects = [
       "Created a lite version of the app to provide virtual workshops for children. Developed modules for interactive challenges and brainstorming.",
     gradient: "from-green-500 to-emerald-500",
     icon: "IC",
-    image: "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/30/1e/04/301e0413-ebdd-2dce-a2e6-a241071d0e52/source/512x512bb.jpg",
+    image:
+      "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/30/1e/04/301e0413-ebdd-2dce-a2e6-a241071d0e52/source/512x512bb.jpg",
     links: {
       ios: "https://apps.apple.com/us/app/innovation-champions-club/id1571404179",
     },

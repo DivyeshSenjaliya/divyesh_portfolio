@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { getDocumentData } from '@/lib/firestoreUtils'
+import { personalInfo } from '@/lib/data'
 
 interface Profile {
     name?: string;
@@ -22,9 +23,14 @@ export default function Contact() {
     useEffect(() => {
         const fetchProfile = async () => {
             const remoteProfile = await getDocumentData('profile', 'main')
-            if (remoteProfile) {
-                setProfile(remoteProfile as Profile)
-            }
+            const profileData = remoteProfile ? (remoteProfile as Profile) : {}
+
+            setProfile({
+                ...profileData,
+                email: personalInfo.email,
+                phone: personalInfo.phone,
+                location: personalInfo.location,
+            })
         }
         fetchProfile()
     }, [])

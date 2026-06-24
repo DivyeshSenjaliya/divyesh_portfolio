@@ -2,59 +2,51 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { Home, User, Briefcase, Mail } from 'lucide-react'
+import { ArrowUpRight, Sparkles } from 'lucide-react'
+
+const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Work', path: '/projects' },
+    { name: 'About', path: '/about' },
+]
 
 export default function Navigation() {
     const pathname = usePathname()
 
-    const navItems = [
-        { name: 'Home', path: '/', icon: <Home className="w-4 h-4" /> },
-        { name: 'About', path: '/about', icon: <User className="w-4 h-4" /> },
-        { name: 'Work', path: '/projects', icon: <Briefcase className="w-4 h-4" /> },
-        { name: 'Contact', path: '/contact', icon: <Mail className="w-4 h-4" /> }
-    ]
-
     return (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full px-4 sm:w-[95%] sm:px-0 max-w-fit">
-            <motion.div 
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full"
-            >
-                <div className="flex items-center p-1.5 rounded-full glass-card bg-background/60 w-full justify-center">
-                    <div className="flex items-center gap-1 overflow-x-auto no-scrollbar px-2 sm:px-4">
-                        {navItems.map((item) => {
-                            const isActive = pathname === item.path
- 
-                            return (
-                                <Link
-                                    key={item.path}
-                                    href={item.path}
-                                    className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300
-                                        ${isActive
-                                            ? 'text-primary-foreground'
-                                            : 'text-mutedForeground hover:text-foreground'
-                                        }`}
-                                >
-                                    {isActive && (
-                                        <motion.div 
-                                            layoutId="nav-active"
-                                            className="absolute inset-0 bg-primary rounded-full -z-10 shadow-[0_0_20px_rgba(20,184,166,0.3)]"
-                                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                                        />
-                                    )}
-                                    <span className={`transition-transform duration-300 ${isActive ? 'scale-110' : ''}`}>
-                                        {item.icon}
-                                    </span>
-                                    <span className="hidden sm:inline">{item.name}</span>
-                                </Link>
-                            )
-                        })}
-                    </div>
+        <header className="fixed inset-x-0 top-4 z-50 px-4">
+            <nav className="mx-auto flex w-full max-w-xl items-center justify-between border-2 border-ink bg-cream shadow-sketch">
+                <Link href="/" className="flex items-center gap-2 border-r-2 border-ink px-4 py-3 text-sm font-black">
+                    <Sparkles className="h-4 w-4 fill-[#FFD447] text-ink" />
+                    <span>DIVYESH</span>
+                </Link>
+
+                <div className="flex flex-1 items-center justify-center">
+                    {navItems.map((item) => {
+                        const isActive = pathname === item.path
+
+                        return (
+                            <Link
+                                key={item.path}
+                                href={item.path}
+                                className={`border-r-2 border-ink px-3 py-3 text-xs font-black transition hover:bg-white sm:px-4 ${
+                                    isActive ? 'bg-[#BAE6FD]' : 'bg-cream'
+                                }`}
+                            >
+                                {item.name}
+                            </Link>
+                        )
+                    })}
                 </div>
-            </motion.div>
-        </div>
+
+                <Link
+                    href="/contact"
+                    className="flex items-center gap-1 px-4 py-3 text-xs font-black transition hover:bg-white sm:text-sm"
+                >
+                    Hire me
+                    <ArrowUpRight className="h-4 w-4" />
+                </Link>
+            </nav>
+        </header>
     )
 }
