@@ -132,6 +132,17 @@ export const projects = [
     },
   },
   {
+    title: "Pawzy",
+    subtitle: "Pet Care App",
+    tech: ["React Native", "Firebase", "REST API"],
+    description:
+      "Built mobile app features for a pet care experience with clean UI flows, reliable data handling, and smooth cross-platform performance.",
+    gradient: "from-orange-300 to-pink-400",
+    icon: "PZ",
+    image: "",
+    links: {},
+  },
+  {
     title: "Nayomi",
     subtitle: "E-Commerce App",
     tech: ["E-commerce", "Payment Gateway", "UX/UI"],

@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import {
     ArrowRight,
@@ -19,8 +20,13 @@ import {
     Star,
     Workflow,
 } from 'lucide-react'
-import { personalInfo, projects, skills } from '@/lib/data'
+import { personalInfo, projects as localProjects, skills } from '@/lib/data'
+import { getCollectionData } from '@/lib/firestoreUtils'
 import ProjectIcon from '@/components/ProjectIcon'
+
+type Project = (typeof localProjects)[number] & {
+    id?: string
+}
 
 const tools = ['React Native', 'TypeScript', 'Firebase', 'REST APIs', 'Redux Toolkit', 'Zustand']
 
@@ -51,7 +57,6 @@ const services = [
     },
 ]
 
-const featuredProjects = projects.slice(0, 3)
 const topSkills = skills.technical.slice(0, 6)
 
 const stats = [
@@ -77,6 +82,24 @@ const testimonials = [
         quote: 'Balances platform-specific behavior with a shared React Native codebase that stays maintainable.',
     },
 ]
+
+const featuredProjectMatchers = [
+    (project: Project) => project.title?.toLowerCase().includes('et app'),
+    (project: Project) =>
+        project.title?.toLowerCase().includes('pathconnect') ||
+        project.subtitle?.toLowerCase().includes('phlebo'),
+    (project: Project) =>
+        project.title?.toLowerCase().includes('pawzy') ||
+        project.title?.toLowerCase().includes('pwazy') ||
+        project.subtitle?.toLowerCase().includes('pawzy') ||
+        project.subtitle?.toLowerCase().includes('pwazy'),
+]
+
+function getFeaturedProjects(projects: Project[]) {
+    return featuredProjectMatchers
+        .map((matcher) => projects.find(matcher) || localProjects.find(matcher))
+        .filter((project): project is Project => Boolean(project))
+}
 
 function DoodleStar({ className = '' }: { className?: string }) {
     return (
@@ -127,6 +150,21 @@ function AppPreviewCard() {
 }
 
 export default function Hero() {
+    const [projectSource, setProjectSource] = useState<Project[]>(localProjects)
+    const featuredProjects = useMemo(() => getFeaturedProjects(projectSource), [projectSource])
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const remoteProjects = await getCollectionData('projects')
+
+            if (remoteProjects?.length) {
+                setProjectSource(remoteProjects as Project[])
+            }
+        }
+
+        fetchProjects()
+    }, [])
+
     return (
         <main className="min-h-screen bg-cream pt-28 text-ink">
             <section className="relative overflow-hidden border-b-2 border-ink px-5 pb-10 pt-8 md:px-10 lg:px-20">
