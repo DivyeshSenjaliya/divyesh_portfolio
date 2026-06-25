@@ -4,7 +4,7 @@ export const personalInfo = {
   role: "React Native Developer",
   location: "Surat, India",
   email: "divyeshsenjaliy@gmail.com",
-  phone: "+91 9574520727",
+  phone: "+91 9574620727",
   bio: "Passionate developer with a strong focus on mobile technologies. I enjoy turning complex problems into simple, beautiful, and intuitive designs. My job is to build functional and user-friendly and at the same time attractive interfaces.",
   profileImage: profileImg,
   socials: {
