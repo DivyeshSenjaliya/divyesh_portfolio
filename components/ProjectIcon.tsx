@@ -7,7 +7,9 @@ interface ProjectIconProps {
     title: string
     icon?: string
     image?: string
+    fallbackImage?: string
     links?: {
+        web?: string
         ios?: string
         android?: string
     }
@@ -36,6 +38,7 @@ export default function ProjectIcon({
     title,
     icon,
     image,
+    fallbackImage,
     links,
     imageClassName = 'h-full w-full object-cover',
     fallbackClassName = 'flex h-full w-full items-center justify-center text-4xl font-black text-ink',
@@ -44,10 +47,11 @@ export default function ProjectIcon({
         () =>
             [
                 image,
+                fallbackImage,
                 getStoreIconUrl(links?.android),
                 getStoreIconUrl(links?.ios),
             ].filter((source): source is string => Boolean(source)),
-        [image, links?.android, links?.ios]
+        [image, fallbackImage, links?.android, links?.ios]
     )
     const [sourceIndex, setSourceIndex] = useState(0)
     const currentSource = sources[sourceIndex]

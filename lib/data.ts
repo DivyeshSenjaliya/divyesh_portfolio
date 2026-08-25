@@ -18,8 +18,15 @@ export const personalInfo = {
 export const experiences = [
   {
     title: "React Native Developer",
+    company: "Freelancer",
+    period: "May 2026 - Present",
+    description:
+      "Delivering end-to-end mobile app development for global startups and clients. Specializing in high-performance React Native apps, custom UI/UX architectures, third-party SDK integrations, and App Store / Google Play deployments.",
+  },
+  {
+    title: "React Native Developer",
     company: "Madvise Infotech",
-    period: "Nov 2023 - Present",
+    period: "Nov 2023 - May 2026",
     description:
       "Developing and maintaining cross-platform mobile applications. Implementing RESTful APIs, optimizing app performance, and ensuring seamless user experiences.",
   },
@@ -36,7 +43,7 @@ export const education = [
   {
     degree: "Bachelor of Computer Applications",
     institution: "Veer Narmad South Gujarat University",
-    period: "2022 - Present",
+    period: "2022 - 2025",
   },
   {
     degree: "Higher Secondary Education",
@@ -87,115 +94,241 @@ export const skills = {
 
 export const projects = [
   {
-    title: "ET App",
-    subtitle: "Economic Times App",
-    tech: ["React Native", "Firebase", "REST API"],
+    id: "epik",
+    title: "Epik",
+    subtitle: "Electronics Try & Buy Platform",
+    tech: [
+      "React Native",
+      "TypeScript",
+      "Redux Toolkit",
+      "REST APIs",
+      "Payment Gateway",
+      "Location Services",
+    ],
     description:
-      "Developed features to provide real-time business and stock market news updates. Integrated widgets, push notifications, and offline reading capabilities.",
+      "Engineered high-performance cross-platform mobile apps for India's first try-and-buy electronics store. Developed 60-minute doorstep demo scheduling, live product comparison matrix, secure payment gateway integration, and real-time delivery rider tracking.",
+    gradient: "from-blue-600 to-indigo-600",
+    icon: "EP",
+    image: "/assets/projects/epik/icon.webp",
+    fallbackImage:
+      "https://getepik.in/_next/image?url=%2Fassets%2Fimages%2Flogos%2Fprim_logo.jpg&w=256&q=75",
+    screenshots: [
+      "/assets/projects/epik/screenshots/epik1.webp",
+      "/assets/projects/epik/screenshots/epik2.webp",
+      "/assets/projects/epik/screenshots/epik3.webp",
+      "/assets/projects/epik/screenshots/epik4.webp",
+      "/assets/projects/epik/screenshots/epik5.webp",
+      "/assets/projects/epik/screenshots/epik6.webp",
+    ],
+    links: {
+      web: "https://getepik.in/",
+      android:
+        "https://play.google.com/store/apps/details?id=com.epik.app",
+      ios: "https://apps.apple.com/us/app/epik-try-and-buy-everything/id6756187208",
+    },
+  },
+  {
+    id: "et-app",
+    title: "ET App",
+    subtitle: "Financial & Stock Market News",
+    tech: [
+      "React Native",
+      "TypeScript",
+      "Live Feeds",
+      "Push Notifications",
+      "Offline Storage",
+      "REST APIs",
+    ],
+    description:
+      "Architected and enhanced core mobile features for India’s premier business daily. Built live BSE/NSE market tracking widgets, stock watchlists, offline reading cache, deep linking, and low-latency push notifications for breaking financial news.",
     gradient: "from-purple-500 to-blue-500",
     icon: "ET",
-    image:
+    image: "/assets/projects/et-app/icon.webp",
+    fallbackImage:
       "https://play-lh.googleusercontent.com/qPlCh-FOFw5IF-s-XfhlDojzbpVVzUqrNeVcnlrykL2EpOLpdmcJBpTePhKgh8LwAQ",
+    screenshots: [
+      "/assets/projects/et-app/screenshots/et1.webp",
+      "/assets/projects/et-app/screenshots/et2.webp",
+      "/assets/projects/et-app/screenshots/et3.webp",
+      "/assets/projects/et-app/screenshots/et4.webp",
+    ],
     links: {
-      ios: "https://apps.apple.com/in/app/the-economic-times/id403513333",
+      ios: "https://apps.apple.com/in/app/the-economic-times/id474766725",
       android:
         "https://play.google.com/store/apps/details?id=com.et.reader.activities",
     },
   },
   {
+    id: "pathconnect",
     title: "Pathconnect",
-    subtitle: "Phlebo App",
-    tech: ["React Native", "Barcode Scanning", "Maps"],
+    subtitle: "Phlebotomist Field Operations",
+    tech: [
+      "React Native",
+      "TypeScript",
+      "Google Maps API",
+      "Barcode Scanner",
+      "Offline Sync",
+      "REST APIs",
+    ],
     description:
-      "Designed and developed an app for phlebotomists to manage and accept assigned orders. Implemented barcode scanning and photo verification.",
+      "Developed a mission-critical field operations app for diagnostic phlebotomists. Implemented route optimization with Google Maps, automated barcode/QR scanning for specimen vials, patient KYC verification, digital signatures, and resilient offline-first data sync.",
     gradient: "from-blue-500 to-cyan-500",
     icon: "PC",
-    image:
+    image: "/assets/projects/pathconnect/icon.webp",
+    fallbackImage:
       "https://play-lh.googleusercontent.com/r_zU6zV-3yv6_zK1b203c-jJ41D20g9i5R6c20E0eD2D52F7e9-74d32a0d1e3C0fQ",
+    screenshots: [
+      "/assets/projects/pathconnect/screenshots/phlebo1.webp",
+      "/assets/projects/pathconnect/screenshots/phlebo2.webp",
+      "/assets/projects/pathconnect/screenshots/phlebo3.webp",
+      "/assets/projects/pathconnect/screenshots/phlebo4.webp",
+      "/assets/projects/pathconnect/screenshots/phlebo5.webp",
+    ],
     links: {
+      ios: "https://apps.apple.com/in/app/pathoconnect-phlebo/id6670427392",
       android:
-        "https://play.google.com/store/apps/details?id=com.pathoconnect.phlebo",
+        "https://play.google.com/store/apps/details?id=com.observancegroup.phlebotomist",
     },
   },
   {
+    id: "ticc-lite",
     title: "TICC Lite",
-    subtitle: "Innovation Champions' Club",
-    tech: ["Education", "Interactive", "Multimedia"],
+    subtitle: "Gamified Kids Learning Platform",
+    tech: [
+      "React Native",
+      "TypeScript",
+      "Reanimated",
+      "Video Streaming",
+      "Interactive UI",
+      "REST APIs",
+    ],
     description:
-      "Created a lite version of the app to provide virtual workshops for children. Developed modules for interactive challenges and brainstorming.",
+      "Created an engaging, gesture-driven educational mobile app for children. Developed interactive workshop modules, 60fps fluid UI animations, video lesson streaming, gamified reward badges, and kid-friendly intuitive touch flows.",
     gradient: "from-green-500 to-emerald-500",
     icon: "IC",
-    image:
+    image: "/assets/projects/ticc-lite/icon.webp",
+    fallbackImage:
       "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/30/1e/04/301e0413-ebdd-2dce-a2e6-a241071d0e52/source/512x512bb.jpg",
+    screenshots: [
+      "/assets/projects/ticc-lite/screenshots/ticc1.webp",
+      "/assets/projects/ticc-lite/screenshots/ticc2.webp",
+      "/assets/projects/ticc-lite/screenshots/ticc3.webp",
+      "/assets/projects/ticc-lite/screenshots/ticc4.webp",
+      "/assets/projects/ticc-lite/screenshots/ticc5.webp",
+      "/assets/projects/ticc-lite/screenshots/ticc6.webp",
+    ],
     links: {
-      ios: "https://apps.apple.com/us/app/innovation-champions-club/id1571404179",
+      ios: "https://apps.apple.com/us/app/the-innovation-champions-club/id6447499219",
+      android: "https://play.google.com/store/apps/details?id=com.itcelearning",
     },
   },
   {
+    id: "pawzy",
     title: "Pawzy",
-    subtitle: "Pet Care App",
-    tech: ["React Native", "Firebase", "REST API"],
+    subtitle: "Pet Health & Care Companion",
+    tech: [
+      "React Native",
+      "TypeScript",
+      "Firebase Suite",
+      "Push & Local Notifications",
+      "Zustand",
+      "REST APIs",
+    ],
     description:
-      "Built mobile app features for a pet care experience with clean UI flows, reliable data handling, and smooth cross-platform performance.",
+      "Designed and built an all-in-one pet health management app. Integrated pet profile records, automated vaccination and medication reminder schedules, veterinary appointment booking, and slick custom UI components with dark mode support.",
     gradient: "from-orange-300 to-pink-400",
     icon: "PZ",
-    image: "",
-    links: {},
-  },
-  {
-    title: "Nayomi",
-    subtitle: "E-Commerce App",
-    tech: ["E-commerce", "Payment Gateway", "UX/UI"],
-    description:
-      "Developed an e-commerce app for nightwear, lingerie, and loungewear. Implemented seamless shopping experiences and multiple payment options.",
-    gradient: "from-pink-500 to-rose-500",
-    icon: "NY",
-    image: "https://logo.clearbit.com/nayomi.com",
+    image: "/assets/projects/pawzy/icon.webp",
+    fallbackImage: "",
+    screenshots: [
+      "/assets/projects/pawzy/screenshots/pawzy1.webp",
+      "/assets/projects/pawzy/screenshots/pawzy2.webp",
+      "/assets/projects/pawzy/screenshots/pawzy3.webp",
+      "/assets/projects/pawzy/screenshots/pawzy4.webp",
+    ],
     links: {
-      ios: "https://apps.apple.com/ae/app/nayomi-%D9%86%D8%B9%D9%88%D9%85%D9%8A/id1453406248",
-      android: "https://play.google.com/store/apps/details?id=com.nayomi",
+      ios: "https://apps.apple.com/us/app/pawzy/id6743706680",
+      android: "https://play.google.com/store/apps/details?id=com.pawzy_mobile"
     },
   },
-  {
-    title: "Mihyar",
-    subtitle: "Fashion Shopping",
-    tech: ["Fashion", "Search", "Notifications"],
-    description:
-      "Created a fashion e-commerce app with advanced search and filtering options. Integrated push notifications for exclusive offers.",
-    gradient: "from-amber-500 to-orange-500",
-    icon: "MY",
-    image: "https://logo.clearbit.com/mihyar.com",
-    links: {
-      ios: "https://apps.apple.com/ae/app/mihyar-%D9%85%D9%87%D9%8A%D8%A7%D8%B1/id1463375811",
-      android: "https://play.google.com/store/apps/details?id=com.mihyar",
-    },
-  },
-  {
-    title: "Body Shop",
-    subtitle: "UAE & Jeddah",
-    tech: ["Beauty", "Checkout", "Discovery"],
-    description:
-      "Developed an app for beauty and skincare products with an intuitive UI. Enabled easy navigation and seamless checkout.",
-    gradient: "from-teal-500 to-green-500",
-    icon: "BS",
-    image: "https://logo.clearbit.com/thebodyshop.ae",
-    links: {
-      ios: "https://apps.apple.com/ae/app/the-body-shop-uae/id1524317070",
-      android:
-        "https://play.google.com/store/apps/details?id=com.thebodyshop.uae",
-    },
-  },
-  {
-    title: "LEGO",
-    subtitle: "Saudi Arabia",
-    tech: ["Shopping", "Gamification", "Video"],
-    description:
-      "Designed an engaging shopping experience for LEGO® products. Implemented product showcases, interactive games, and video content.",
-    gradient: "from-yellow-400 to-orange-500",
-    icon: "LG",
-    image: "https://logo.clearbit.com/lego.com",
-    links: {
-      ios: "https://apps.apple.com/sa/app/lego-saudi-arabia/id1571217081",
-    },
-  },
+  // {
+  //   id: "nayomi",
+  //   title: "Nayomi",
+  //   subtitle: "E-Commerce App",
+  //   tech: ["E-commerce", "Payment Gateway", "UX/UI"],
+  //   description:
+  //     "Developed an e-commerce app for nightwear, lingerie, and loungewear. Implemented seamless shopping experiences and multiple payment options.",
+  //   gradient: "from-pink-500 to-rose-500",
+  //   icon: "NY",
+  //   image: "/assets/projects/nayomi/icon.png",
+  //   fallbackImage: "https://logo.clearbit.com/nayomi.com",
+  //   screenshots: [
+  //     "/assets/projects/nayomi/screenshots/screen1.jpg",
+  //     "/assets/projects/nayomi/screenshots/screen2.jpg",
+  //   ],
+  //   links: {
+  //     ios: "https://apps.apple.com/ae/app/nayomi-%D9%86%D8%B9%D9%88%D9%85%D9%8A/id1453406248",
+  //     android: "https://play.google.com/store/apps/details?id=com.nayomi",
+  //   },
+  // },
+  // {
+  //   id: "mihyar",
+  //   title: "Mihyar",
+  //   subtitle: "Fashion Shopping",
+  //   tech: ["Fashion", "Search", "Notifications"],
+  //   description:
+  //     "Created a fashion e-commerce app with advanced search and filtering options. Integrated push notifications for exclusive offers.",
+  //   gradient: "from-amber-500 to-orange-500",
+  //   icon: "MY",
+  //   image: "/assets/projects/mihyar/icon.png",
+  //   fallbackImage: "https://logo.clearbit.com/mihyar.com",
+  //   screenshots: [
+  //     "/assets/projects/mihyar/screenshots/screen1.jpg",
+  //     "/assets/projects/mihyar/screenshots/screen2.jpg",
+  //   ],
+  //   links: {
+  //     ios: "https://apps.apple.com/ae/app/mihyar-%D9%85%D9%87%D9%8A%D8%A7%D8%B1/id1463375811",
+  //     android: "https://play.google.com/store/apps/details?id=com.mihyar",
+  //   },
+  // },
+  // {
+  //   id: "body-shop",
+  //   title: "Body Shop",
+  //   subtitle: "UAE & Jeddah",
+  //   tech: ["Beauty", "Checkout", "Discovery"],
+  //   description:
+  //     "Developed an app for beauty and skincare products with an intuitive UI. Enabled easy navigation and seamless checkout.",
+  //   gradient: "from-teal-500 to-green-500",
+  //   icon: "BS",
+  //   image: "/assets/projects/body-shop/icon.png",
+  //   fallbackImage: "https://logo.clearbit.com/thebodyshop.ae",
+  //   screenshots: [
+  //     "/assets/projects/body-shop/screenshots/screen1.jpg",
+  //     "/assets/projects/body-shop/screenshots/screen2.jpg",
+  //   ],
+  //   links: {
+  //     ios: "https://apps.apple.com/ae/app/the-body-shop-uae/id1524317070",
+  //     android:
+  //       "https://play.google.com/store/apps/details?id=com.thebodyshop.uae",
+  //   },
+  // },
+  // {
+  //   id: "lego",
+  //   title: "LEGO",
+  //   subtitle: "Saudi Arabia",
+  //   tech: ["Shopping", "Gamification", "Video"],
+  //   description:
+  //     "Designed an engaging shopping experience for LEGO® products. Implemented product showcases, interactive games, and video content.",
+  //   gradient: "from-yellow-400 to-orange-500",
+  //   icon: "LG",
+  //   image: "/assets/projects/lego/icon.png",
+  //   fallbackImage: "https://logo.clearbit.com/lego.com",
+  //   screenshots: [
+  //     "/assets/projects/lego/screenshots/screen1.jpg",
+  //     "/assets/projects/lego/screenshots/screen2.jpg",
+  //   ],
+  //   links: {
+  //     ios: "https://apps.apple.com/sa/app/lego-saudi-arabia/id1571217081",
+  //   },
+  // },
 ];

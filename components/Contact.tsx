@@ -1,49 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
-import { getDocumentData } from '@/lib/firestoreUtils'
 import { personalInfo } from '@/lib/data'
 
-interface Profile {
-    name?: string;
-    role?: string;
-    bio?: string;
-    languages?: string[];
-    email?: string;
-    phone?: string;
-    location?: string;
-}
-
 export default function Contact() {
-    const [profile, setProfile] = useState<Profile | null>(null)
     const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            const remoteProfile = await getDocumentData('profile', 'main')
-            const profileData = remoteProfile ? (remoteProfile as Profile) : {}
-
-            setProfile({
-                ...profileData,
-                email: personalInfo.email,
-                phone: personalInfo.phone,
-                location: personalInfo.location,
-            })
-        }
-        fetchProfile()
-    }, [])
-
-    if (!profile) return (
-        <div className="min-h-screen bg-background flex items-center justify-center">
-            <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
-        </div>
-    )
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const mailtoLink = `mailto:${profile.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.name}%0D%0AEmail: ${formData.email}`
+        const mailtoLink = `mailto:${personalInfo.email}?subject=Portfolio Contact from ${formData.name}&body=${formData.message}%0D%0A%0D%0AFrom: ${formData.name}%0D%0AEmail: ${formData.email}`
         window.location.href = mailtoLink
     }
 
@@ -86,21 +53,21 @@ export default function Contact() {
                                 </div>
                                 <div>
                                     <p className="text-mutedForeground text-sm font-medium mb-1">Email</p>
-                                    <a href={`mailto:${profile.email}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
-                                        {profile.email}
+                                    <a href={`mailto:${personalInfo.email}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
+                                        {personalInfo.email}
                                     </a>
                                 </div>
                             </div>
 
-                            {profile.phone && (
+                            {personalInfo.phone && (
                                 <div className="flex items-center gap-6 group">
                                     <div className="w-16 h-16 rounded-2xl glass-card flex items-center justify-center text-primary-500 group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-background transition-all duration-500">
                                         <Phone className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <p className="text-mutedForeground text-sm font-medium mb-1">Phone</p>
-                                        <a href={`tel:${profile.phone.replace(/\s+/g, '')}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
-                                            {profile.phone}
+                                        <a href={`tel:${personalInfo.phone.replace(/\s+/g, '')}`} className="text-xl text-foreground font-medium hover:text-primary-400 transition-colors">
+                                            {personalInfo.phone}
                                         </a>
                                     </div>
                                 </div>
@@ -113,7 +80,7 @@ export default function Contact() {
                                 <div>
                                     <p className="text-mutedForeground text-sm font-medium mb-1">Location</p>
                                     <p className="text-xl text-foreground font-medium">
-                                        {profile.location}
+                                        {personalInfo.location}
                                     </p>
                                 </div>
                             </div>

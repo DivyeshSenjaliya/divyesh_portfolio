@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import {
     ArrowRight,
@@ -21,7 +21,6 @@ import {
     Workflow,
 } from 'lucide-react'
 import { personalInfo, projects as localProjects, skills } from '@/lib/data'
-import { getCollectionData } from '@/lib/firestoreUtils'
 import ProjectIcon from '@/components/ProjectIcon'
 
 type Project = (typeof localProjects)[number] & {
@@ -84,15 +83,17 @@ const testimonials = [
 ]
 
 const featuredProjectMatchers = [
-    (project: Project) => project.title?.toLowerCase().includes('et app'),
     (project: Project) =>
+        project.id === 'epik' ||
+        project.title?.toLowerCase().includes('epik'),
+    (project: Project) =>
+        project.id === 'pathconnect' ||
         project.title?.toLowerCase().includes('pathconnect') ||
         project.subtitle?.toLowerCase().includes('phlebo'),
     (project: Project) =>
-        project.title?.toLowerCase().includes('pawzy') ||
-        project.title?.toLowerCase().includes('pwazy') ||
-        project.subtitle?.toLowerCase().includes('pawzy') ||
-        project.subtitle?.toLowerCase().includes('pwazy'),
+        project.id === 'et-app' ||
+        project.title?.toLowerCase().includes('et app') ||
+        project.subtitle?.toLowerCase().includes('economic times'),
 ]
 
 function getFeaturedProjects(projects: Project[]) {
@@ -150,20 +151,7 @@ function AppPreviewCard() {
 }
 
 export default function Hero() {
-    const [projectSource, setProjectSource] = useState<Project[]>(localProjects)
-    const featuredProjects = useMemo(() => getFeaturedProjects(projectSource), [projectSource])
-
-    useEffect(() => {
-        const fetchProjects = async () => {
-            const remoteProjects = await getCollectionData('projects')
-
-            if (remoteProjects?.length) {
-                setProjectSource(remoteProjects as Project[])
-            }
-        }
-
-        fetchProjects()
-    }, [])
+    const featuredProjects = useMemo(() => getFeaturedProjects(localProjects), [])
 
     return (
         <main className="min-h-screen bg-cream pt-28 text-ink">
@@ -305,6 +293,7 @@ export default function Hero() {
                                             title={project.title}
                                             icon={project.icon}
                                             image={project.image}
+                                            fallbackImage={project.fallbackImage}
                                             links={project.links}
                                             fallbackClassName="flex h-full w-full items-center justify-center bg-cream text-2xl font-black text-ink"
                                         />

@@ -29,15 +29,28 @@ export default function Experience() {
     const experiences = [
         {
             title: 'React Native Developer',
+            company: 'Freelancer',
+            period: 'May 2026 - Present',
+            location: 'Remote',
+            description: [
+                'Delivering end-to-end mobile app development for global startups and clients',
+                'Architecting high-performance React Native apps with custom UI/UX',
+                'Integrating payment gateways, maps, and native device capabilities',
+                'Handling App Store and Google Play Store deployments',
+            ],
+            current: true,
+        },
+        {
+            title: 'React Native Developer',
             company: 'Madvise Infotech',
-            period: 'November 2023 - Present',
+            period: 'November 2023 - May 2026',
             location: 'Surat',
             description: [
                 'Developing and maintaining cross-platform mobile applications',
                 'Implementing RESTful APIs and integrating third-party services',
                 'Optimizing app performance and debugging issues',
             ],
-            current: true,
+            current: false,
         },
         {
             title: 'React Native Intern',

@@ -1,72 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { getDocumentData, getCollectionData } from '@/lib/firestoreUtils'
-
-interface Profile {
-    name?: string;
-    role?: string;
-    bio?: string;
-    languages?: string[];
-    email?: string;
-    phone?: string;
-    location?: string;
-}
-
-interface Skill {
-    title: string;
-    desc: string;
-}
-
-interface SkillsData {
-    technical?: Skill[];
-}
-
-interface Experience {
-    title: string;
-    company: string;
-    period: string;
-    description: string;
-}
-
-interface Education {
-    degree: string;
-    institution: string;
-    period: string;
-}
+import { personalInfo, experiences, education, skills } from '@/lib/data'
 
 export default function About() {
-    const [profile, setProfile] = useState<Profile | null>(null)
-    const [experiences, setExperiences] = useState<Experience[]>([])
-    const [education, setEducation] = useState<Education[]>([])
-    const [skillsData, setSkillsData] = useState<SkillsData | null>(null)
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const remoteProfile = await getDocumentData('profile', 'main')
-            if (remoteProfile) {
-                setProfile(remoteProfile as Profile)
-            }
-            const remoteExp = await getCollectionData('experience')
-            if (remoteExp && remoteExp.length > 0) {
-                const uniqueExp = (remoteExp as any[]).filter((v, i, a) => a.findIndex(t => (t.title === v.title && t.company === v.company)) === i)
-                setExperiences(uniqueExp as Experience[])
-            }
-
-            const remoteEdu = await getCollectionData('education')
-            if (remoteEdu && remoteEdu.length > 0) {
-                const uniqueEdu = (remoteEdu as any[]).filter((v, i, a) => a.findIndex(t => (t.degree === v.degree && t.institution === v.institution)) === i)
-                setEducation(uniqueEdu as Education[])
-            }
-
-            const remoteSkills = await getDocumentData('skills', 'main')
-            if (remoteSkills) setSkillsData(remoteSkills as SkillsData)
-        }
-        fetchData()
-    }, [])
-
-    if (!profile) return <div className="min-h-screen bg-background" />
 
     return (
         <section className="section-padding min-h-screen bg-background relative overflow-hidden">
@@ -82,13 +19,13 @@ export default function About() {
                     
                     <div className="flex-1 space-y-6 text-center md:text-left">
                         <h1 className="text-5xl md:text-7xl font-display font-bold text-foreground tracking-tight">
-                            {profile.name?.split(' ')[0] || 'Divyesh'} <span className="text-primary-500">{profile.name?.split(' ')[1] || 'Senjaliya'}</span>
+                            {personalInfo.name.split(' ')[0]} <span className="text-primary-500">{personalInfo.name.split(' ')[1]}</span>
                         </h1>
-                        <p className="text-2xl text-mutedForeground font-light">{profile.role}</p>
-                        <p className="text-lg text-mutedForeground leading-relaxed max-w-2xl">{profile.bio}</p>
+                        <p className="text-2xl text-mutedForeground font-light">{personalInfo.role}</p>
+                        <p className="text-lg text-mutedForeground leading-relaxed max-w-2xl">{personalInfo.bio}</p>
                         
                         <div className="flex flex-wrap gap-2 justify-center md:justify-start pt-4">
-                            {profile.languages?.map(lang => (
+                            {personalInfo.languages.map(lang => (
                                 <span key={lang} className="px-4 py-2 rounded-full glass-card text-sm font-medium text-foreground">{lang}</span>
                             ))}
                         </div>
@@ -152,7 +89,7 @@ export default function About() {
                 >
                     <h2 className="text-3xl font-display font-bold text-foreground text-center">Technical Expertise</h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {skillsData?.technical?.map((skill, i) => (
+                        {skills.technical.map((skill, i) => (
                             <div key={i} className="glass-card p-6 rounded-2xl hover:border-primary-500/30 transition-colors">
                                 <h3 className="text-lg font-bold text-foreground mb-2">{skill.title}</h3>
                                 <p className="text-mutedForeground text-sm leading-relaxed">{skill.desc}</p>
