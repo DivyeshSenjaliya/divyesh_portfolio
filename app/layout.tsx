@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
     title: 'Divyesh Senjaliya | React Native Developer',
@@ -25,6 +26,7 @@ export default function RootLayout({
             <body>
                 <Navigation />
                 {children}
+                <SpeedInsights />
             </body>
         </html>
     )
