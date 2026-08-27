@@ -159,6 +159,37 @@ export const projects = [
     },
   },
   {
+    id: "greenfi",
+    title: "GreenFi",
+    subtitle: "ESG AI & Sustainable Finance",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "AI Analytics",
+      "REST APIs",
+      "Tailwind CSS",
+      "Data Visualization",
+    ],
+    description:
+      "Architected and developed intelligent web platform modules for AI-powered ESG risk management and sustainable finance. Built interactive sustainability metrics dashboards, automated due diligence workflows, and supply chain analytics.",
+    gradient: "from-emerald-500 to-teal-700",
+    icon: "GF",
+    image: "/assets/projects/greenfi/icon.webp",
+    fallbackImage:
+      "https://greenfi.ai/wp-content/uploads/2023/09/favicon.png",
+    screenshots: [
+      "/assets/projects/greenfi/screenshots/greenfi1.webp",
+      "/assets/projects/greenfi/screenshots/greenfi2.webp",
+      "/assets/projects/greenfi/screenshots/greenfi3.webp",
+      "/assets/projects/greenfi/screenshots/greenfi4.webp",
+      "/assets/projects/greenfi/screenshots/greenfi5.webp",
+    ],
+    galleryOrientation: "vertical" as const,
+    links: {
+      web: "https://greenfi.ai/",
+    },
+  },
+  {
     id: "pathconnect",
     title: "Pathconnect",
     subtitle: "Phlebotomist Field Operations",

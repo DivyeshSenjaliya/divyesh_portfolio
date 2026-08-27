@@ -8,9 +8,18 @@ interface ProjectGalleryProps {
     title: string
     screenshots?: string[]
     gradient?: string
+    orientation?: 'vertical' | 'horizontal'
+    layout?: 'row' | 'vertical' | 'grid'
 }
 
-export default function ProjectGallery({ title, screenshots = [], gradient = 'from-blue-500 to-indigo-500' }: ProjectGalleryProps) {
+export default function ProjectGallery({
+    title,
+    screenshots = [],
+    gradient = 'from-blue-500 to-indigo-500',
+    orientation,
+    layout,
+}: ProjectGalleryProps) {
+    const isVerticalLayout = orientation === 'vertical' || layout === 'vertical' || layout === 'grid'
     const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null)
     const [failedImages, setFailedImages] = useState<Record<string, boolean>>({})
 
@@ -59,7 +68,7 @@ export default function ProjectGallery({ title, screenshots = [], gradient = 'fr
                 <div className="flex items-center gap-2">
                     <ImageIcon className="w-4 h-4 text-primary-400" />
                     <span className="text-sm font-semibold text-foreground/90 tracking-wide uppercase">
-                        App Screenshots & Gallery
+                        {isVerticalLayout ? 'Platform Views & Gallery' : 'App Screenshots & Gallery'}
                     </span>
                 </div>
                 {validScreenshots.length > 0 && (
@@ -70,34 +79,65 @@ export default function ProjectGallery({ title, screenshots = [], gradient = 'fr
             </div>
 
             {validScreenshots.length > 0 ? (
-                <div className="flex gap-4 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin scrollbar-thumb-white/10">
-                    {validScreenshots.map((src, idx) => (
-                        <motion.div
-                            key={src}
-                            whileHover={{ scale: 1.03, y: -4 }}
-                            transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                            onClick={() => setActiveImageIndex(idx)}
-                            className="group/shot relative flex-shrink-0 cursor-pointer snap-start overflow-hidden rounded-2xl border border-white/10 bg-muted/40 shadow-lg"
-                        >
-                            <div className="relative w-32 h-64 sm:w-40 sm:h-80 overflow-hidden bg-black/40">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                    src={src}
-                                    alt={`${title} screenshot ${idx + 1}`}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover/shot:scale-105"
-                                    loading="lazy"
-                                    onError={() => markImageFailed(src)}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/shot:opacity-100 transition-opacity duration-300 flex items-end justify-center p-3">
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-500 text-background text-xs font-bold shadow-md">
-                                        <Maximize2 className="w-3.5 h-3.5" />
-                                        Preview
-                                    </span>
+                isVerticalLayout ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+                        {validScreenshots.map((src, idx) => (
+                            <motion.div
+                                key={src}
+                                whileHover={{ scale: 1.02, y: -3 }}
+                                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                                onClick={() => setActiveImageIndex(idx)}
+                                className="group/shot relative cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-muted/40 shadow-lg"
+                            >
+                                <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/40">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={src}
+                                        alt={`${title} screenshot ${idx + 1}`}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover/shot:scale-105"
+                                        loading="lazy"
+                                        onError={() => markImageFailed(src)}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/shot:opacity-100 transition-opacity duration-300 flex items-end justify-center p-3">
+                                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-500 text-background text-xs font-bold shadow-md">
+                                            <Maximize2 className="w-3.5 h-3.5" />
+                                            Preview
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex gap-4 overflow-x-auto pb-4 pt-1 snap-x scrollbar-thin scrollbar-thumb-white/10">
+                        {validScreenshots.map((src, idx) => (
+                            <motion.div
+                                key={src}
+                                whileHover={{ scale: 1.03, y: -4 }}
+                                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+                                onClick={() => setActiveImageIndex(idx)}
+                                className="group/shot relative flex-shrink-0 cursor-pointer snap-start overflow-hidden rounded-2xl border border-white/10 bg-muted/40 shadow-lg"
+                            >
+                                <div className="relative w-32 h-64 sm:w-40 sm:h-80 overflow-hidden bg-black/40">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={src}
+                                        alt={`${title} screenshot ${idx + 1}`}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover/shot:scale-105"
+                                        loading="lazy"
+                                        onError={() => markImageFailed(src)}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/shot:opacity-100 transition-opacity duration-300 flex items-end justify-center p-3">
+                                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-500 text-background text-xs font-bold shadow-md">
+                                            <Maximize2 className="w-3.5 h-3.5" />
+                                            Preview
+                                        </span>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                )
             ) : (
                 <div className="rounded-2xl border border-dashed border-white/10 bg-muted/20 p-5 text-center">
                     <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500/10 text-primary-400 mb-2">
@@ -197,7 +237,9 @@ export default function ProjectGallery({ title, screenshots = [], gradient = 'fr
                                         <button
                                             key={src}
                                             onClick={() => setActiveImageIndex(i)}
-                                            className={`relative h-14 w-8 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                                            className={`relative ${
+                                                isVerticalLayout ? 'h-12 w-20' : 'h-14 w-8'
+                                            } flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
                                                 i === activeImageIndex
                                                     ? 'border-primary-400 scale-105 shadow-md'
                                                     : 'border-transparent opacity-60 hover:opacity-100'

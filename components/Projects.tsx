@@ -110,6 +110,7 @@ export default function Projects() {
                                         title={project.title}
                                         screenshots={project.screenshots}
                                         gradient={project.gradient}
+                                        orientation={(project as any).galleryOrientation}
                                     />
                                 </div>
                             </div>
